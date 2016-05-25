@@ -191,34 +191,11 @@ LinkedList.prototype.bubbleSort = function() {
   var node = this.head.next;
   while (node) {
     if (node.prev.val > node.val) {
-      if (node.prev === this.head) {
-        node.prev.prev = node;
-        node.prev.next = node.next;
-        this.head = node;
-
-        node.next = node.prev;
-        node.prev = null;
-        node = node.next;
-      } else if (node === this.tail) {
-        console.log('tail');
-        var prev = node.prev.prev;
-
-        this.tail = node.prev;
-        node.prev.next = null;
-        node.prev.prev = node;
-
-        node.next = node.prev;
-        node.prev = prev;
-      } else {
-        var prev = node.prev.prev;
-
-        node.prev.next = node.next;
-        node.prev.prev = node;
-
-        node.next.prev = node.prev;
-
-        node.next = node.prev;
-        node.prev = prev;
+      var temp = node.val;
+      node.val = node.prev.val;
+      node.prev.val = temp;
+      if (node.prev != this.head) {
+        node = node.prev;
       }
     } else {
       node = node.next;
@@ -227,10 +204,35 @@ LinkedList.prototype.bubbleSort = function() {
   return this;
 }
 
+LinkedList.prototype.selectionSort = function() {
+  var node = this.head;
+
+  while (node) {
+    var first = node;
+    var smallest = first;
+    while (first) {
+      if (first.val < smallest.val) {
+        smallest = first;
+      }
+
+      first = first.next;
+    }
+    var temp = node.val;
+    node.val = smallest.val;
+    smallest.val = temp;
+
+    node = node.next;
+  }
+}
+
+LinkedList.prototype.insertionSort = function() {
+  
+}
+
 var a = new LinkedList();
 
-a.generate([1, 4, 2])
+a.generate([1, 4, 2, 6, 4, 8, 2, 0])
 
-a.bubbleSort();
+a.selectionSort();
 
 a.printEach();
