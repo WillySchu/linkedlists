@@ -226,13 +226,26 @@ LinkedList.prototype.selectionSort = function() {
 }
 
 LinkedList.prototype.insertionSort = function() {
-  
+  var node = this.head.next;
+
+  while (node) {
+    var val = node.val;
+    var walk = node;
+
+    while (walk.prev && walk.prev.val > val) {
+      walk.val = walk.prev.val;
+      walk = walk.prev;
+    }
+    walk.val = val;
+    node = node.next;
+  }
+  return this;
 }
 
 var a = new LinkedList();
 
-a.generate([1, 4, 2, 6, 4, 8, 2, 0])
+a.generate([9, 4, 6, 5, 2, 1, 0, 4, 6])
 
-a.selectionSort();
+a.insertionSort();
 
 a.printEach();
