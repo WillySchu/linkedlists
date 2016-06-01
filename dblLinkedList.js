@@ -210,17 +210,17 @@ LinkedList.prototype.selectionSort = function() {
   while (node) {
     var first = node;
     var smallest = first;
+
     while (first) {
       if (first.val < smallest.val) {
         smallest = first;
       }
-
       first = first.next;
     }
     var temp = node.val;
+
     node.val = smallest.val;
     smallest.val = temp;
-
     node = node.next;
   }
 }
